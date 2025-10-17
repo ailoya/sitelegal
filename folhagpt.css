@@ -1,0 +1,128 @@
+/* ====== ESTILO GERAL ====== */
+body {
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  background-color: #1e1e1e;
+  color: #e5e5e5;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+/* ====== CONTAINER ====== */
+.caixademanda {
+  background-color: #2a2a2a;
+  border-radius: 12px;
+  padding: 40px;
+  margin-top: 50px;
+  width: 85%;
+  max-width: 900px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.caixademanda:hover {
+  box-shadow: 0 6px 35px rgba(0, 0, 0, 0.6);
+}
+
+/* ====== TÍTULOS ====== */
+h1 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #4da6ff;
+  letter-spacing: 0.5px;
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: #66b3ff;
+  font-size: 1.2rem;
+  border-left: 4px solid #4da6ff;
+  padding-left: 10px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+/* ====== TABELAS ====== */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
+
+th, td {
+  text-align: left;
+  padding: 12px 15px;
+  border-bottom: 1px solid #3a3a3a;
+}
+
+th {
+  background-color: #333;
+  color: #80c1ff;
+  font-weight: 600;
+}
+
+td {
+  color: #e0e0e0;
+}
+
+/* ====== BOTÕES ====== */
+button {
+  background-color: #0059b3;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover:not(:disabled) {
+  background-color: #0073e6;
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+/* ====== RELÓGIO / TEMPO ====== */
+#minutes, #seconds, #colon {
+  font-weight: 600;
+  color: #4da6ff;
+}
+
+/* ====== SCROLLBAR PERSONALIZADA ====== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4da6ff;
+  border-radius: 4px;
+}
+
+/* ====== RESPONSIVIDADE ====== */
+@media (max-width: 768px) {
+  .caixademanda {
+    padding: 25px;
+  }
+
+  table {
+    font-size: 0.85rem;
+  }
+
+  button {
+    font-size: 0.85rem;
+    padding: 7px 12px;
+  }
+}

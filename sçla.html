@@ -1,0 +1,57 @@
+<<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+</head>
+<body>
+ <div id="timerDisplay"></div>
+    <button onclick="startTimer()">Start</button>
+    <button onclick="stopTimer()">Stop</button>
+    <button onclick="resetTimer()">Reset</button>
+</body>
+
+<script>
+    let totalSeconds = 0;
+let timerInterval;
+
+
+const timerDisplay = document.getElementById('timerDisplay');
+
+function formatTime(seconds) {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    const paddedHours = String(hours).padStart(2, '0');
+    const paddedMinutes = String(minutes).padStart(2, '0');
+    const paddedSeconds = String(remainingSeconds).padStart(2, '0');
+
+    return `${paddedMinutes}:${paddedSeconds}`;
+}
+
+function updateTimer() {
+    totalSeconds++;
+    timerDisplay.textContent = formatTime(totalSeconds);
+}
+
+function startTimer() {
+    if (!timerInterval) { // Prevent multiple intervals from starting
+        timerInterval = setInterval(updateTimer, 1000);
+    }
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null; // Clear the interval ID
+}
+
+function resetTimer() {
+    stopTimer();
+    totalSeconds = 0;
+    timerDisplay.textContent = formatTime(totalSeconds);
+}
+</script>
+</html>
+    

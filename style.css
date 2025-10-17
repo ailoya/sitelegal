@@ -1,6 +1,56 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
-.tabela {
-	font-family: roboto;
-	border: 2px solid;
+.caixademanda{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-top: -27rem;
+	margin-left: -42rem;
+	width: 80rem;
+	height: 50rem;
+	border: 3px solid #182020;
+	border-radius: 5px;
+	align-items: center;
+	justify-content: center;
+	background-color: #26426c;
+	color: #f1f1f1;
+	padding: 2rem;
 }
+
+p {
+	color: #ffffff;
+}
+
+th, tr, td {
+    color: #182020;
+	font-family: Roboto;
+	font-size: 1rem;
+	background-color: #f1f1f1;
+	border: 2px solid #182020;
+	padding: 2px;
+}
+
+button {
+	background-color: #182020;
+	color: #f1f1f1;
+}
+
+body {
+	position: relative;
+	font-family: Roboto;
+}
+
+body::before  {
+	
+	    content: "";
+        position: absolute;
+        top: -20rem;
+        left: -20rem;
+        width: 10000%;
+        height: 10000%;
+        background-image: url('estrela.jpg');
+        background-size: repeat;
+        background-blend-mode: darken;
+        opacity: 0.2; /* Adjust opacity here */
+        z-index: -1;}
+

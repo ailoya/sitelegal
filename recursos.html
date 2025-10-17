@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title></title>
+</head>
+<body>
+  <p>s</p>
+      <div class="caixademanda">
+      <h1>Recursos Demandas</h1>
+      <h2>Demandas Ativas:</h2>
+      <table>
+        <tr>
+        <th> Demandas: </th>
+        <th> Tempo de chamado aberto:</th>
+        <th> Pontos:</th>
+         <th> Status:</th>
+        </tr>
+
+         <tr>
+        <td id=>Organizar documentos:</td>
+        <td>
+          <label id="minutes">00</label>
+          <label id="colon">:</label>
+          <label id="seconds">00</label>
+</td>
+        <td id="pontuacao"></td>
+         <td id="status"></td>
+         <td> <button type="submit" id="butao1"> Concluir Demanda:</button></td>
+         </tr>
+
+         <tr>
+         <td></td>
+         <td id="tempo1"></td>
+         <td id="pontuacao1"></td>
+         <td id="status1"></td>
+         <td> <button type="submit" id="butao2"> Concluir Demanda:</button></td>
+         </tr>
+         
+         <tr>
+         <td id="demanda"></td>
+         <td id="tempo2"></td>
+         <td id="pontuacao2"></td>
+         <td id="status2"></td>
+         <td> <button type="submit" id="butao3"> Concluir Demanda:</button></td>
+         </tr>
+
+
+      </table>   
+      
+
+      <h2>Pontuação:</h2>
+
+      <table>
+        <tr>
+          <th> Setor:</th>
+          <th> Pontuação:</th>
+        </tr>
+
+        <tr>
+          <td id="setor">Logistica</td>
+          <td id="pontosetor"></td>
+        </tr>
+      </table>
+
+      <h2> Recompensa:</h2>
+
+      <table>
+        <tr>
+          <td>Balinha</td>
+          <td>100 Pontos</td>
+          <td><button type="submit" id="butaobala"> Receber Recompensa:</button></td>
+        </tr>
+      </table>
+      </div>
+
+      
+       
+
+      
+
+</body>
+<script type="text/javascript">
+  
+    var tempo = 5;
+    var pontos = 100;
+    var pontos2 = 50;
+    var pontos3 = 25;
+    var pontosetor = 0;
+    var conclusao = false; 
+    var conclusao1 = false;
+    var conclusao2 = false;
+    var setor = "Manutenção";
+    var status = "Em Aberto";
+    var status1 = "Em Aberto";
+    var status2 = "Em Aberto";
+    var minutos = 0;
+    var reducao = 0;
+    var reducao2 = 0;
+    var reducao3 = 0;
+
+   
+
+
+    document.getElementById("butaobala").disabled = true;
+
+
+
+
+
+  window.addEventListener('load',function(){
+  console.log(conclusao);
+  document.getElementById('butao1').addEventListener('click',function(){
+    conclusao = true;
+    console.log(conclusao);
+
+    if (true) {
+      pontos = pontos-reducao;
+      pontosetor = pontosetor+pontos;
+      document.getElementById("pontosetor").innerHTML = pontosetor;
+      document.getElementById("butao1");
+      butao1.disabled = true;
+      var status = "Concluida!";
+       document.getElementById("status").innerHTML = status;
+       console.log(pontosetor);
+       recompensa();
+
+    }
+    
+  });
+  });
+
+    window.addEventListener('load',function(){
+  console.log(conclusao1);
+  document.getElementById('butao2').addEventListener('click',function(){
+    conclusao1 = true;
+    console.log(conclusao1);
+
+    if (true) {
+      pontos2 = pontos2-reducao2;
+      pontosetor = pontosetor + pontos2;
+      document.getElementById("pontosetor").innerHTML = pontosetor;
+      document.getElementById("butao2");
+      butao2.disabled = true;
+      var status = "Concluida!";
+       document.getElementById("status1").innerHTML = status;
+       console.log(pontosetor);
+       recompensa();
+    }
+    
+    });
+  });
+
+
+    window.addEventListener('load',function(){
+  console.log(conclusao2);
+  document.getElementById('butao3').addEventListener('click',function(){
+    conclusao2 = true;
+    console.log(conclusao2);
+
+    if (true) {
+      pontos3 = pontos3-reducao3;
+      pontosetor = pontosetor + pontos3;
+      document.getElementById("pontosetor").innerHTML = pontosetor;
+      document.getElementById("butao3");
+      butao3.disabled = true;
+      var status = "Concluida!";
+       document.getElementById("status2").innerHTML = status;
+       console.log(pontosetor);
+       recompensa();
+    }
+    
+    });
+  });
+
+var minutesLabel = document.getElementById("minutes");
+        var secondsLabel = document.getElementById("seconds");
+        var totalSeconds = 0;
+        console.log(totalSeconds);
+
+
+        setInterval(setTime, 1000);
+
+        setInterval(minutoPassa, 60000);
+
+        function minutoPassa() {
+
+          ++minutos;
+          reducao = minutos * 10
+          reducao2 = minutos * 5;
+          reducao3 = minutos*2.5;
+          console.log(minutos);
+        }
+
+        function setTime()
+        {
+            ++totalSeconds;
+            secondsLabel.innerHTML = pad(totalSeconds%60);
+            minutesLabel.innerHTML = pad(parseInt(totalSeconds/60));
+        }
+
+        function pad(val)
+        {
+            var valString = val + "";
+            if(valString.length < 2)
+            {
+                return "0" + valString;
+            }
+            else
+            {
+                return valString;
+            }
+        }
+
+        function recompensa() {
+          var botaobala = document.getElementById("butaobala")
+          if (pontosetor >= 100) {
+            butaobala.disabled = false;
+          } else {
+            butaobala.disabled = true;
+        
+        }};
+
+        window.addEventListener('load', function(){
+        document.getElementById('butaobala').addEventListener('click',function(){
+          alert("voce é foda!!");
+        })});
+
+
+        
+    
+
+      
+
+
+    
+ 
+    document.getElementById("pontuacao").innerHTML = pontos ;
+    document.getElementById("pontuacao1").innerHTML = pontos/2;
+    document.getElementById("pontuacao2").innerHTML = pontos/4;
+    document.getElementById("pontosetor").innerHTML = pontosetor;
+    document.getElementById("setor").innerHTML = setor;
+    document.getElementById("status").innerHTML = status;
+    document.getElementById("status1").innerHTML = status1;
+    document.getElementById("status2").innerHTML = status2;
+</script>
+</html>

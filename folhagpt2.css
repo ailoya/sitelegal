@@ -57,6 +57,10 @@ table {
   font-size: 0.95rem;
 }
 
+thead {
+  color: #F08418;
+}
+
 th, td {
   text-align: left;
   padding: 12px 15px;
@@ -202,7 +206,7 @@ button:disabled {
   }
 
   thead {
-    display: none;
+    color: #F08418;
   }
 
   tr {

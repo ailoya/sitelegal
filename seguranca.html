@@ -92,6 +92,11 @@
     </table>
   </div>
 
+    <!-- ALERTA PERSONALIZADO -->
+  <div id="alerta-recompensa" class="alert-custom">
+    🎉 <strong>Parabéns!</strong> Você ganhou um pirulito pra cada membro do setor!
+  </div>
+
   <script>
     // ===== VARIÁVEIS GERAIS =====
     let demandas = document.querySelectorAll("tbody tr");
@@ -164,15 +169,29 @@
     document.getElementById("butao2").addEventListener("click", () => concluirDemanda(1));
     document.getElementById("butao3").addEventListener("click", () => concluirDemanda(2));
 
-    document.getElementById("butaobala").addEventListener("click", () => {
+    /**document.getElementById("butaobala").addEventListener("click", () => {
       alert("🎉 Você ganhou um pirulito pra cada membro do setor!");
       pontosetor -= 100;
       document.getElementById("pontosetor").textContent = pontosetor;
       document.getElementById("butaobala").disabled = pontosetor < 100;
-    });
+    });**/
 
     // ===== INICIAR CONTAGEM AO CARREGAR =====
     startTimer(currentIndex);
+
+
+    // ===== ALERTA ESTILIZADO =====
+    const alerta = document.getElementById("alerta-recompensa");
+    document.getElementById("butaobala").addEventListener("click", () => {
+      pontosetor -= 100;
+      document.getElementById("pontosetor").textContent = pontosetor;
+      document.getElementById("butaobala").disabled = pontosetor < 100;
+
+      alerta.classList.add("show");
+      setTimeout(() => alerta.classList.remove("show"), 4000);
+    });
+
+
   </script>
 </body>
 </html>

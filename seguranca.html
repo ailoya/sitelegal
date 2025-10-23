@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  
   <link rel="stylesheet" type="text/css" href="folhagpt.css">
   <title></title>
 </head>
@@ -15,6 +16,7 @@
         <th> Tempo de chamado aberto:</th>
         <th> Pontos:</th>
          <th> Status:</th>
+         <th></th>
         </tr>
 
          <tr>
@@ -68,10 +70,12 @@
       <table>
         <tr>
           
-          <td><button type="submit" id="butaobala"> Receber Recompensa - 100 Pontos</button></td>
+          <td><button type="submit" id="butaobala" onclick="reset()"> Receber Recompensa - 100 Pontos</button></td>
         </tr>
       </table>
-      </div>
+
+          </div>
+
 
       
        
@@ -89,6 +93,7 @@
     var conclusao = false; 
     var conclusao1 = false;
     var conclusao2 = false;
+    var botaobalaclicado = false;
     var setor = "Manutenção";
     var status = "Em Aberto";
     var status1 = "Em Aberto";
@@ -172,6 +177,13 @@
     });
   });
 
+      window.addEventListener('load', function(){
+        document.getElementById('butaobala').addEventListener('click',function(){
+          console.log(pontosetor)
+          alert("Você ganhou um pirulito pra cada membro do setor!!!");
+          
+        })});
+
 var minutesLabel = document.getElementById("minutes");
         var secondsLabel = document.getElementById("seconds");
         var totalSeconds = 0;
@@ -215,15 +227,28 @@ var minutesLabel = document.getElementById("minutes");
           var botaobala = document.getElementById("butaobala")
           if (pontosetor >= 100) {
             butaobala.disabled = false;
+
           } else {
             butaobala.disabled = true;
         
         }};
 
-        window.addEventListener('load', function(){
-        document.getElementById('butaobala').addEventListener('click',function(){
-          alert("voce é foda e gaynhou uma bala!!");
-        })});
+           window.addEventListener('load',function(){
+    document.getElementById('butaobala').addEventListener('click',function(){
+    botaobalaclicado = true;
+    console.log(botaobalaclicado);
+    if (true) {
+            pontosetor = pontosetor - 100;
+            document.getElementById("pontosetor").innerHTML = pontosetor;
+     }
+     recompensa();
+    
+    });
+  });
+
+         
+
+      
 
 
         

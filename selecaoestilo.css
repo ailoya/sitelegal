@@ -4,8 +4,9 @@ body {
   background-image: url(fundo2.jpg);
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
   background-color: #1e1e1e;
-  color: #e5e5e5;
+  color: #182020;
   margin: 0;
   padding: 0;
   height: 100vh;
@@ -16,22 +17,30 @@ body {
 
 /* ====== CONTAINER ====== */
 .caixa {
-  background-color: #d5d5d5;
-  padding: 50px;
-  border-radius: 12px;
+  background-color: rgba(221, 221, 221, 0.95);
+  padding: 50px 60px;
+  border-radius: 16px;
   box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
   text-align: center;
   transition: all 0.3s ease;
+  animation: fadeIn 0.8s ease-in-out;
 }
 
 .caixa:hover {
   box-shadow: 0 8px 35px rgba(0, 0, 0, 0.6);
 }
 
+/* ====== TÍTULO ====== */
+h1 {
+  color: #F08418;
+  font-size: 1.6rem;
+  margin-bottom: 25px;
+}
+
 /* ====== SELECT ====== */
 select {
   background-color: #F08418;
-  color: #f1f1f1;
+  color: #fff;
   border: 2px solid #F0BE18;
   border-radius: 8px;
   padding: 12px 18px;
@@ -41,32 +50,32 @@ select {
   transition: all 0.3s ease;
   min-width: 280px;
   appearance: none;
-   background-image: linear-gradient(45deg, transparent 50%, #F0BE18 50%),
+  background-image: linear-gradient(45deg, transparent 50%, #F0BE18 50%),
                     linear-gradient(135deg, #F0BE18 50%, transparent 50%);
   background-position: calc(100% - 20px) calc(1em + 2px),
                        calc(100% - 15px) calc(1em + 2px);
   background-size: 5px 5px, 5px 5px;
   background-repeat: no-repeat;
- 
 }
 
 select:hover {
   background-color: #F0BE18;
   border-color: #F0BE18;
+  color: #182020;
 }
 
 select:focus {
   border-color: #F0BE18;
-  box-shadow: 0 0 8px #182020;
+  box-shadow: 0 0 8px rgba(240, 190, 24, 0.7);
 }
 
 /* ====== OPÇÕES ====== */
 option {
-  background-color: #2a2a2a;
-  color: #e5e5e5;
+  background-color: #f1f1f1;
+  color: #182020;
 }
 
-/* ====== ANIMAÇÃO DE ENTRADA ====== */
+/* ====== ANIMAÇÃO ====== */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -78,18 +87,55 @@ option {
   }
 }
 
-.caixa {
-  animation: fadeIn 0.8s ease-in-out;
+/* ====== RESPONSIVIDADE ====== */
+
+/* Tablets e telas médias */
+@media (max-width: 900px) {
+  .caixa {
+    padding: 40px;
+    width: 85%;
+  }
+  select {
+    min-width: 240px;
+    font-size: 0.95rem;
+  }
 }
 
-/* ====== RESPONSIVIDADE ====== */
+/* Celulares */
 @media (max-width: 600px) {
+  body {
+    background-size: cover;
+    align-items: flex-start;
+    padding-top: 80px;
+  }
+
   .caixa {
-    padding: 30px;
+    width: 90%;
+    padding: 30px 20px;
+    border-radius: 12px;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
   }
 
   select {
     font-size: 0.9rem;
-    min-width: 220px;
+    min-width: 100%;
+    padding: 10px 14px;
+  }
+}
+
+/* Celulares muito pequenos (ex: iPhone SE) */
+@media (max-width: 380px) {
+  h1 {
+    font-size: 1.1rem;
+  }
+  .caixa {
+    padding: 20px;
+  }
+  select {
+    font-size: 0.85rem;
   }
 }

@@ -25,34 +25,42 @@
         <tr>
           <td data-label="Demanda">Organizar documentos</td>
           <td data-label="Tempo">
-            <label id="minutes">00</label>
-            <label id="colon">:</label>
-            <label id="seconds">00</label>
+            <label class="minutes">00</label>
+            <label class="colon">:</label>
+            <label class="seconds">00</label>
           </td>
           <td data-label="Pontos" id="pontuacao"></td>
           <td data-label="Status" id="status"></td>
           <td data-label="Ação">
-            <button type="submit" id="butao1">Concluir Demanda</button>
+            <button type="button" id="butao1">Concluir Demanda</button>
           </td>
         </tr>
 
         <tr>
-          <td data-label="Demanda"></td>
-          <td data-label="Tempo" id="tempo1"></td>
+          <td data-label="Demanda">Checar equipamentos</td>
+          <td data-label="Tempo">
+            <label class="minutes">00</label>
+            <label class="colon">:</label>
+            <label class="seconds">00</label>
+          </td>
           <td data-label="Pontos" id="pontuacao1"></td>
           <td data-label="Status" id="status1"></td>
           <td data-label="Ação">
-            <button type="submit" id="butao2">Concluir Demanda</button>
+            <button type="button" id="butao2">Concluir Demanda</button>
           </td>
         </tr>
         
         <tr>
-          <td data-label="Demanda" id="demanda"></td>
-          <td data-label="Tempo" id="tempo2"></td>
+          <td data-label="Demanda">Verificar câmeras</td>
+          <td data-label="Tempo">
+            <label class="minutes">00</label>
+            <label class="colon">:</label>
+            <label class="seconds">00</label>
+          </td>
           <td data-label="Pontos" id="pontuacao2"></td>
           <td data-label="Status" id="status2"></td>
           <td data-label="Ação">
-            <button type="submit" id="butao3">Concluir Demanda</button>
+            <button type="button" id="butao3">Concluir Demanda</button>
           </td>
         </tr>
       </tbody>
@@ -78,129 +86,93 @@
     <table>
       <tr>
         <td>
-          <button type="submit" id="butaobala" onclick="reset()">Receber Recompensa - 100 Pontos</button>
+          <button type="button" id="butaobala">Receber Recompensa - 100 Pontos</button>
         </td>
       </tr>
     </table>
   </div>
 
-  <script type="text/javascript">
-    var tempo = 5;
-    var pontos = 100;
-    var pontos2 = 50;
-    var pontos3 = 25;
-    var pontosetor = 0;
-    var conclusao = false; 
-    var conclusao1 = false;
-    var conclusao2 = false;
-    var botaobalaclicado = false;
-    var setor = "Manutenção";
-    var status = "Em Aberto";
-    var status1 = "Em Aberto";
-    var status2 = "Em Aberto";
-    var minutos = 0;
-    var reducao = 0;
-    var reducao2 = 0;
-    var reducao3 = 0;
+  <script>
+    // ===== VARIÁVEIS GERAIS =====
+    let demandas = document.querySelectorAll("tbody tr");
+    let currentIndex = 0; // índice da demanda atual
+    let totalSeconds = 0;
+    let timerInterval;
+    let minutos = 0;
+
+    // Pontuação base
+    let pontosBase = [100, 50, 25];
+    let pontosetor = 0;
+
+    // Inicializa tabela
+    document.getElementById("pontuacao").innerHTML = pontosBase[0];
+    document.getElementById("pontuacao1").innerHTML = pontosBase[1];
+    document.getElementById("pontuacao2").innerHTML = pontosBase[2];
+    document.getElementById("pontosetor").innerHTML = pontosetor;
+    document.getElementById("status").innerHTML = "Em Aberto";
+    document.getElementById("status1").innerHTML = "Pendente";
+    document.getElementById("status2").innerHTML = "Pendente";
 
     document.getElementById("butaobala").disabled = true;
 
-    window.addEventListener('load', function(){
-      document.getElementById('butao1').addEventListener('click', function(){
-        conclusao = true;
-        if (true) {
-          pontos = pontos - reducao;
-          pontosetor = pontosetor + pontos;
-          document.getElementById("pontosetor").innerHTML = pontosetor;
-          butao1.disabled = true;
-          document.getElementById("status").innerHTML = "Concluída!";
-          recompensa();
-        }
-      });
-    });
+    // ===== FUNÇÃO DE CONTAGEM DE TEMPO =====
+    function startTimer(rowIndex) {
+      clearInterval(timerInterval);
+      totalSeconds = 0;
+      minutos = 0;
+      let row = demandas[rowIndex];
+      let minLabel = row.querySelector(".minutes");
+      let secLabel = row.querySelector(".seconds");
 
-    window.addEventListener('load', function(){
-      document.getElementById('butao2').addEventListener('click', function(){
-        conclusao1 = true;
-        if (true) {
-          pontos2 = pontos2 - reducao2;
-          pontosetor = pontosetor + pontos2;
-          document.getElementById("pontosetor").innerHTML = pontosetor;
-          butao2.disabled = true;
-          document.getElementById("status1").innerHTML = "Concluída!";
-          recompensa();
-        }
-      });
-    });
-
-    window.addEventListener('load', function(){
-      document.getElementById('butao3').addEventListener('click', function(){
-        conclusao2 = true;
-        if (true) {
-          pontos3 = pontos3 - reducao3;
-          pontosetor = pontosetor + pontos3;
-          document.getElementById("pontosetor").innerHTML = pontosetor;
-          butao3.disabled = true;
-          document.getElementById("status2").innerHTML = "Concluída!";
-          recompensa();
-        }
-      });
-    });
-
-    window.addEventListener('load', function(){
-      document.getElementById('butaobala').addEventListener('click', function(){
-        alert("Você ganhou um pirulito pra cada membro do setor!!!");
-      });
-    });
-
-    var minutesLabel = document.getElementById("minutes");
-    var secondsLabel = document.getElementById("seconds");
-    var totalSeconds = 0;
-
-    setInterval(setTime, 1000);
-    setInterval(minutoPassa, 60000);
-
-    function minutoPassa() {
-      ++minutos;
-      reducao = minutos * 10;
-      reducao2 = minutos * 5;
-      reducao3 = minutos * 2.5;
-    }
-
-    function setTime() {
-      ++totalSeconds;
-      secondsLabel.innerHTML = pad(totalSeconds % 60);
-      minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+      timerInterval = setInterval(() => {
+        totalSeconds++;
+        secLabel.textContent = pad(totalSeconds % 60);
+        minLabel.textContent = pad(parseInt(totalSeconds / 60));
+      }, 1000);
     }
 
     function pad(val) {
-      var valString = val + "";
-      if (valString.length < 2) return "0" + valString;
-      else return valString;
+      return val < 10 ? "0" + val : val;
     }
 
-    function recompensa() {
-      var butaobala = document.getElementById("butaobala");
-      if (pontosetor >= 100) butaobala.disabled = false;
-      else butaobala.disabled = true;
+    // ===== FUNÇÃO PARA CONCLUIR DEMANDA =====
+    function concluirDemanda(index) {
+      clearInterval(timerInterval);
+      let row = demandas[index];
+      row.querySelector("button").disabled = true;
+      row.querySelector("[id^='status']").textContent = "Concluída!";
+
+      // Pontuação final (sem redução)
+      pontosetor += pontosBase[index];
+      document.getElementById("pontosetor").textContent = pontosetor;
+
+      // Ativa próxima demanda
+      if (index + 1 < demandas.length) {
+        currentIndex++;
+        demandas[currentIndex].querySelector("[id^='status']").textContent = "Em Aberto";
+        startTimer(currentIndex);
+      }
+
+      // Ativa botão de recompensa se >= 100
+      if (pontosetor >= 100) {
+        document.getElementById("butaobala").disabled = false;
+      }
     }
 
-    window.addEventListener('load', function(){
-      document.getElementById('butaobala').addEventListener('click', function(){
-        botaobalaclicado = true;
-        pontosetor = pontosetor - 100;
-        document.getElementById("pontosetor").innerHTML = pontosetor;
-        recompensa();
-      });
+    // ===== EVENTOS DE CLIQUE =====
+    document.getElementById("butao1").addEventListener("click", () => concluirDemanda(0));
+    document.getElementById("butao2").addEventListener("click", () => concluirDemanda(1));
+    document.getElementById("butao3").addEventListener("click", () => concluirDemanda(2));
+
+    document.getElementById("butaobala").addEventListener("click", () => {
+      alert("🎉 Você ganhou um pirulito pra cada membro do setor!");
+      pontosetor -= 100;
+      document.getElementById("pontosetor").textContent = pontosetor;
+      document.getElementById("butaobala").disabled = pontosetor < 100;
     });
 
-    document.getElementById("pontuacao").innerHTML = pontos;
-    document.getElementById("pontuacao1").innerHTML = pontos / 2;
-    document.getElementById("pontuacao2").innerHTML = pontos / 4;
-    document.getElementById("pontosetor").innerHTML = pontosetor;
-    document.getElementById("status").innerHTML = status;
-    document.getElementById("status1").innerHTML = status1;
-    document.getElementById("status2").innerHTML = status2;
+    // ===== INICIAR CONTAGEM AO CARREGAR =====
+    startTimer(currentIndex);
   </script>
 </body>
 </html>

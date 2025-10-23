@@ -5,46 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Segurança Demandas</title>
   <link rel="stylesheet" type="text/css" href="folhagpt2.css">
-
-  <style>
-    /* ===== ALERTA PERSONALIZADO ===== */
-    .alert-custom {
-      position: fixed;
-      top: 30px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-20px);
-      background-color: #dedede;
-      color: #182020;
-      border: 2px solid #F08418;
-      border-radius: 10px;
-      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
-      padding: 16px 28px;
-      font-family: "Inter", "Segoe UI", Arial, sans-serif;
-      font-size: 1rem;
-      z-index: 1000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    .alert-custom.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-      pointer-events: auto;
-    }
-
-    .alert-custom strong {
-      color: #F08418;
-    }
-
-    @media (max-width: 768px) {
-      .alert-custom {
-        width: 85%;
-        font-size: 0.9rem;
-        padding: 14px 20px;
-      }
-    }
-  </style>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="folhagpt2.css">
+  <title>Segurança Demandas</title>
 </head>
 <body>
   <div class="caixademanda">
@@ -63,25 +32,37 @@
       </thead>
       <tbody>
         <tr>
-          <td>Organizar documentos</td>
-          <td><label class="minutes">00</label>:<label class="seconds">00</label></td>
-          <td id="pontuacao">100</td>
-          <td id="status">Em Aberto</td>
-          <td><button id="butao1">Concluir Demanda</button></td>
+          <td data-label="Demanda">Organizar documentos</td>
+          <td data-label="Tempo">
+            <label id="minutes">00</label>
+            <label id="colon">:</label>
+            <label id="seconds">00</label>
+          </td>
+          <td data-label="Pontos" id="pontuacao"></td>
+          <td data-label="Status" id="status"></td>
+          <td data-label="Ação">
+            <button type="submit" id="butao1">Concluir Demanda</button>
+          </td>
         </tr>
+
         <tr>
-          <td>Checar equipamentos</td>
-          <td><label class="minutes">00</label>:<label class="seconds">00</label></td>
-          <td id="pontuacao1">50</td>
-          <td id="status1">Pendente</td>
-          <td><button id="butao2">Concluir Demanda</button></td>
+          <td data-label="Demanda"></td>
+          <td data-label="Tempo" id="tempo1"></td>
+          <td data-label="Pontos" id="pontuacao1"></td>
+          <td data-label="Status" id="status1"></td>
+          <td data-label="Ação">
+            <button type="submit" id="butao2">Concluir Demanda</button>
+          </td>
         </tr>
+        
         <tr>
-          <td>Verificar câmeras</td>
-          <td><label class="minutes">00</label>:<label class="seconds">00</label></td>
-          <td id="pontuacao2">25</td>
-          <td id="status2">Pendente</td>
-          <td><button id="butao3">Concluir Demanda</button></td>
+          <td data-label="Demanda" id="demanda"></td>
+          <td data-label="Tempo" id="tempo2"></td>
+          <td data-label="Pontos" id="pontuacao2"></td>
+          <td data-label="Status" id="status2"></td>
+          <td data-label="Ação">
+            <button type="submit" id="butao3">Concluir Demanda</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -96,8 +77,8 @@
       </thead>
       <tbody>
         <tr>
-          <td>Segurança</td>
-          <td id="pontosetor">0</td>
+          <td data-label="Setor">Segurança</td>
+          <td data-label="Pontuação" id="pontosetor"></td>
         </tr>
       </tbody>
     </table>
@@ -106,7 +87,7 @@
     <table>
       <tr>
         <td>
-          <button type="button" id="butaobala">Receber Recompensa - 100 Pontos</button>
+          <button type="submit" id="butaobala" onclick="reset()">Receber Recompensa - 100 Pontos</button>
         </td>
       </tr>
     </table>

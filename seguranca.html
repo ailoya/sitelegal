@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Segurança Demandas</title>
-  <link rel="stylesheet" type="text/css" href="folhagpt2.css">
-</head>
-<body>
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="folhagpt2.css">
@@ -93,96 +84,123 @@
     </table>
   </div>
 
-  <!-- ALERTA PERSONALIZADO -->
-  <div id="alerta-recompensa" class="alert-custom">
-    🎉 <strong>Parabéns!</strong> Você ganhou um pirulito pra cada membro do setor!
-  </div>
+  <script type="text/javascript">
+    var tempo = 5;
+    var pontos = 100;
+    var pontos2 = 50;
+    var pontos3 = 25;
+    var pontosetor = 0;
+    var conclusao = false; 
+    var conclusao1 = false;
+    var conclusao2 = false;
+    var botaobalaclicado = false;
+    var setor = "Manutenção";
+    var status = "Em Aberto";
+    var status1 = "Em Aberto";
+    var status2 = "Em Aberto";
+    var minutos = 0;
+    var reducao = 0;
+    var reducao2 = 0;
+    var reducao3 = 0;
 
-  <script>
-    // ===== VARIÁVEIS =====
-    let demandas = document.querySelectorAll("tbody tr");
-    let currentIndex = 0;
-    let totalSeconds = 0;
-    let minutos = 0;
-    let timerInterval, minuteInterval;
-    let pontosBase = [100, 50, 25];
-    let pontos = [100, 50, 25];
-    let reducao = [10, 5, 2.5];
-    let pontosetor = 0;
+    document.getElementById("butaobala").disabled = true;
 
-    const btnRecompensa = document.getElementById("butaobala");
-    btnRecompensa.disabled = true;
+    window.addEventListener('load', function(){
+      document.getElementById('butao1').addEventListener('click', function(){
+        conclusao = true;
+        if (true) {
+          pontos = pontos - reducao;
+          pontosetor = pontosetor + pontos;
+          document.getElementById("pontosetor").innerHTML = pontosetor;
+          butao1.disabled = true;
+          document.getElementById("status").innerHTML = "Concluída!";
+          recompensa();
+        }
+      });
+    });
 
-    // ===== FUNÇÕES DE TEMPO =====
-    function startTimer(rowIndex) {
-      clearInterval(timerInterval);
-      clearInterval(minuteInterval);
-      totalSeconds = 0;
-      minutos = 0;
+    window.addEventListener('load', function(){
+      document.getElementById('butao2').addEventListener('click', function(){
+        conclusao1 = true;
+        if (true) {
+          pontos2 = pontos2 - reducao2;
+          pontosetor = pontosetor + pontos2;
+          document.getElementById("pontosetor").innerHTML = pontosetor;
+          butao2.disabled = true;
+          document.getElementById("status1").innerHTML = "Concluída!";
+          recompensa();
+        }
+      });
+    });
 
-      let row = demandas[rowIndex];
-      let minLabel = row.querySelector(".minutes");
-      let secLabel = row.querySelector(".seconds");
+    window.addEventListener('load', function(){
+      document.getElementById('butao3').addEventListener('click', function(){
+        conclusao2 = true;
+        if (true) {
+          pontos3 = pontos3 - reducao3;
+          pontosetor = pontosetor + pontos3;
+          document.getElementById("pontosetor").innerHTML = pontosetor;
+          butao3.disabled = true;
+          document.getElementById("status2").innerHTML = "Concluída!";
+          recompensa();
+        }
+      });
+    });
 
-      timerInterval = setInterval(() => {
-        totalSeconds++;
-        secLabel.textContent = pad(totalSeconds % 60);
-        minLabel.textContent = pad(parseInt(totalSeconds / 60));
-      }, 1000);
+    window.addEventListener('load', function(){
+      document.getElementById('butaobala').addEventListener('click', function(){
+        alert("Você ganhou um pirulito pra cada membro do setor!!!");
+      });
+    });
 
-      // Reduz pontos a cada minuto
-      minuteInterval = setInterval(() => {
-        minutos++;
-        pontos[rowIndex] = Math.max(pontos[rowIndex] - reducao[rowIndex], 0);
-        document.getElementById(`pontuacao${rowIndex === 0 ? "" : rowIndex}`).innerText = pontos[rowIndex].toFixed(0);
-      }, 60000);
+    var minutesLabel = document.getElementById("minutes");
+    var secondsLabel = document.getElementById("seconds");
+    var totalSeconds = 0;
+
+    setInterval(setTime, 1000);
+    setInterval(minutoPassa, 60000);
+
+    function minutoPassa() {
+      ++minutos;
+      reducao = minutos * 10;
+      reducao2 = minutos * 5;
+      reducao3 = minutos * 2.5;
+    }
+
+    function setTime() {
+      ++totalSeconds;
+      secondsLabel.innerHTML = pad(totalSeconds % 60);
+      minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
     }
 
     function pad(val) {
-      return val < 10 ? "0" + val : val;
+      var valString = val + "";
+      if (valString.length < 2) return "0" + valString;
+      else return valString;
     }
 
-    // ===== CONCLUSÃO DAS DEMANDAS =====
-    function concluirDemanda(index) {
-      clearInterval(timerInterval);
-      clearInterval(minuteInterval);
-
-      let row = demandas[index];
-      row.querySelector("button").disabled = true;
-      row.querySelector("[id^='status']").textContent = "Concluída!";
-
-      pontosetor += pontos[index];
-      document.getElementById("pontosetor").textContent = pontosetor.toFixed(0);
-
-      if (index + 1 < demandas.length) {
-        currentIndex++;
-        let prox = demandas[currentIndex];
-        prox.querySelector("[id^='status']").textContent = "Em Aberto";
-        startTimer(currentIndex);
-      }
-
-      if (pontosetor >= 100) {
-        btnRecompensa.disabled = false;
-      }
+    function recompensa() {
+      var butaobala = document.getElementById("butaobala");
+      if (pontosetor >= 100) butaobala.disabled = false;
+      else butaobala.disabled = true;
     }
 
-    document.getElementById("butao1").addEventListener("click", () => concluirDemanda(0));
-    document.getElementById("butao2").addEventListener("click", () => concluirDemanda(1));
-    document.getElementById("butao3").addEventListener("click", () => concluirDemanda(2));
-
-    // ===== ALERTA ESTILIZADO =====
-    const alerta = document.getElementById("alerta-recompensa");
-    btnRecompensa.addEventListener("click", () => {
-      pontosetor -= 100;
-      document.getElementById("pontosetor").textContent = pontosetor.toFixed(0);
-      btnRecompensa.disabled = pontosetor < 100;
-
-      alerta.classList.add("show");
-      setTimeout(() => alerta.classList.remove("show"), 4000);
+    window.addEventListener('load', function(){
+      document.getElementById('butaobala').addEventListener('click', function(){
+        botaobalaclicado = true;
+        pontosetor = pontosetor - 100;
+        document.getElementById("pontosetor").innerHTML = pontosetor;
+        recompensa();
+      });
     });
 
-    // ===== INÍCIO =====
-    startTimer(currentIndex);
+    document.getElementById("pontuacao").innerHTML = pontos;
+    document.getElementById("pontuacao1").innerHTML = pontos / 2;
+    document.getElementById("pontuacao2").innerHTML = pontos / 4;
+    document.getElementById("pontosetor").innerHTML = pontosetor;
+    document.getElementById("status").innerHTML = status;
+    document.getElementById("status1").innerHTML = status1;
+    document.getElementById("status2").innerHTML = status2;
   </script>
 </body>
 </html>

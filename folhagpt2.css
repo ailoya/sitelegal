@@ -223,6 +223,7 @@ button:disabled {
   td::before {
     content: attr(data-label);
     position: absolute;
+    border-bottom: 1px solid #3a3a3a;
     left: 15px;
     width: 45%;
     padding-right: 10px;

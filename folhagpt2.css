@@ -214,7 +214,7 @@ button:disabled {
   }
 
   td {
-    border: none;
+    border-bottom: 1px solid #3a3a3a;
     position: relative;
     padding-left: 50%;
     text-align: right;

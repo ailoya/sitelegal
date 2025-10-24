@@ -1,54 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Segurança Demandas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="folhagpt2.css">
-
-  <style>
-    /* ===== ALERTA PERSONALIZADO ===== */
-    .alert-custom {
-      position: fixed;
-      top: 30px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-20px);
-      background-color: #dedede;
-      color: #182020;
-      border: 2px solid #F08418;
-      border-radius: 10px;
-      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
-      padding: 16px 28px;
-      font-family: "Inter", "Segoe UI", Arial, sans-serif;
-      font-size: 1rem;
-      z-index: 1000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease, transform 0.4s ease;
-    }
-
-    .alert-custom.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-      pointer-events: auto;
-    }
-
-    .alert-custom strong {
-      color: #F08418;
-    }
-
-    @media (max-width: 768px) {
-      .alert-custom {
-        width: 85%;
-        font-size: 0.9rem;
-        padding: 14px 20px;
-      }
-    }
-  </style>
+  <title>Segurança Demandas</title>
 </head>
 <body>
   <div class="caixademanda">
-    <h1>Segurança Demandas</h1>
+    <h1>Logistica Demandas</h1>
 
     <h2>Demandas Ativas:</h2>
     <table>
@@ -63,25 +23,45 @@
       </thead>
       <tbody>
         <tr>
-          <td>Organizar documentos</td>
-          <td><label class="minutes">00</label>:<label class="seconds">00</label></td>
-          <td id="pontuacao">100</td>
-          <td id="status">Em Aberto</td>
-          <td><button id="butao1">Concluir Demanda</button></td>
+          <td data-label="Demanda">Organizar documentos</td>
+          <td data-label="Tempo">
+            <label class="minutes">00</label>
+            <label class="colon">:</label>
+            <label class="seconds">00</label>
+          </td>
+          <td data-label="Pontos" id="pontuacao"></td>
+          <td data-label="Status" id="status"></td>
+          <td data-label="Ação">
+            <button type="button" id="butao1">Concluir Demanda</button>
+          </td>
         </tr>
+
         <tr>
-          <td>Checar equipamentos</td>
-          <td><label class="minutes">00</label>:<label class="seconds">00</label></td>
-          <td id="pontuacao1">50</td>
-          <td id="status1">Pendente</td>
-          <td><button id="butao2">Concluir Demanda</button></td>
+          <td data-label="Demanda">Checar equipamentos</td>
+          <td data-label="Tempo">
+            <label class="minutes">00</label>
+            <label class="colon">:</label>
+            <label class="seconds">00</label>
+          </td>
+          <td data-label="Pontos" id="pontuacao1"></td>
+          <td data-label="Status" id="status1"></td>
+          <td data-label="Ação">
+            <button type="button" id="butao2">Concluir Demanda</button>
+          </td>
         </tr>
+        
         <tr>
-          <td>Verificar câmeras</td>
-          <td><label class="minutes">00</label>:<label class="seconds">00</label></td>
-          <td id="pontuacao2">25</td>
-          <td id="status2">Pendente</td>
-          <td><button id="butao3">Concluir Demanda</button></td>
+          <td data-label="Demanda">Verificar câmeras</td>
+          <td data-label="Tempo">
+            <label class="minutes">00</label>
+            <label class="colon">:</label>
+            <label class="seconds">00</label>
+          </td>
+          <td data-label="Pontos" id="pontuacao2"></td>
+          <td data-label="Status" id="status2"></td>
+          <td data-label="Ação">
+            <button type="button" id="butao3">Concluir Demanda</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -96,8 +76,8 @@
       </thead>
       <tbody>
         <tr>
-          <td>Segurança</td>
-          <td id="pontosetor">0</td>
+          <td data-label="Setor">Logistica</td>
+          <td data-label="Pontuação" id="pontosetor"></td>
         </tr>
       </tbody>
     </table>
@@ -118,27 +98,33 @@
   </div>
 
   <script>
-    // ===== VARIÁVEIS =====
+   // ===== VARIÁVEIS GERAIS =====
     let demandas = document.querySelectorAll("tbody tr");
     let currentIndex = 0;
     let totalSeconds = 0;
+    let timerInterval;
     let minutos = 0;
-    let timerInterval, minuteInterval;
+
+    // Pontuação base e setorial
     let pontosBase = [100, 50, 25];
-    let pontos = [100, 50, 25];
-    let reducao = [10, 5, 2.5];
+    let pontosAtuais = [...pontosBase]; // pontuação dinâmica com redução
     let pontosetor = 0;
 
-    const btnRecompensa = document.getElementById("butaobala");
-    btnRecompensa.disabled = true;
+    // Inicializa tabela
+    document.getElementById("pontuacao").innerHTML = pontosAtuais[0];
+    document.getElementById("pontuacao1").innerHTML = pontosAtuais[1];
+    document.getElementById("pontuacao2").innerHTML = pontosAtuais[2];
+    document.getElementById("pontosetor").innerHTML = pontosetor;
+    document.getElementById("status").innerHTML = "Em Aberto";
+    document.getElementById("status1").innerHTML = "Pendente";
+    document.getElementById("status2").innerHTML = "Pendente";
 
-    // ===== FUNÇÕES DE TEMPO =====
+    document.getElementById("butaobala").disabled = true;
+
+    // ===== FUNÇÃO DE CONTAGEM E REDUÇÃO =====
     function startTimer(rowIndex) {
       clearInterval(timerInterval);
-      clearInterval(minuteInterval);
       totalSeconds = 0;
-      minutos = 0;
-
       let row = demandas[rowIndex];
       let minLabel = row.querySelector(".minutes");
       let secLabel = row.querySelector(".seconds");
@@ -147,60 +133,59 @@
         totalSeconds++;
         secLabel.textContent = pad(totalSeconds % 60);
         minLabel.textContent = pad(parseInt(totalSeconds / 60));
-      }, 1000);
 
-      // Reduz pontos a cada minuto
-      minuteInterval = setInterval(() => {
-        minutos++;
-        pontos[rowIndex] = Math.max(pontos[rowIndex] - reducao[rowIndex], 0);
-        document.getElementById(`pontuacao${rowIndex === 0 ? "" : rowIndex}`).innerText = pontos[rowIndex].toFixed(0);
-      }, 60000);
+        // Reduz 1 ponto a cada 15 segundos (mínimo 0)
+        if (totalSeconds % 15 === 0 && pontosAtuais[rowIndex] > 0) {
+          pontosAtuais[rowIndex]--;
+          row.querySelector(`[id^='pontuacao']`).textContent = pontosAtuais[rowIndex];
+        }
+      }, 1000);
     }
 
     function pad(val) {
       return val < 10 ? "0" + val : val;
     }
 
-    // ===== CONCLUSÃO DAS DEMANDAS =====
+    // ===== CONCLUIR DEMANDA =====
     function concluirDemanda(index) {
       clearInterval(timerInterval);
-      clearInterval(minuteInterval);
-
       let row = demandas[index];
       row.querySelector("button").disabled = true;
       row.querySelector("[id^='status']").textContent = "Concluída!";
 
-      pontosetor += pontos[index];
-      document.getElementById("pontosetor").textContent = pontosetor.toFixed(0);
+      // Soma pontuação atual (já com redução)
+      pontosetor += pontosAtuais[index];
+      document.getElementById("pontosetor").textContent = pontosetor;
 
+      // Avança para próxima demanda
       if (index + 1 < demandas.length) {
         currentIndex++;
-        let prox = demandas[currentIndex];
-        prox.querySelector("[id^='status']").textContent = "Em Aberto";
+        demandas[currentIndex].querySelector("[id^='status']").textContent = "Em Aberto";
         startTimer(currentIndex);
       }
 
+      // Habilita recompensa se pontos >= 100
       if (pontosetor >= 100) {
-        btnRecompensa.disabled = false;
+        document.getElementById("butaobala").disabled = false;
       }
     }
 
+    // ===== CLIQUES =====
     document.getElementById("butao1").addEventListener("click", () => concluirDemanda(0));
     document.getElementById("butao2").addEventListener("click", () => concluirDemanda(1));
     document.getElementById("butao3").addEventListener("click", () => concluirDemanda(2));
 
-    // ===== ALERTA ESTILIZADO =====
+    // ===== ALERTA PERSONALIZADO =====
     const alerta = document.getElementById("alerta-recompensa");
-    btnRecompensa.addEventListener("click", () => {
+    document.getElementById("butaobala").addEventListener("click", () => {
       pontosetor -= 100;
-      document.getElementById("pontosetor").textContent = pontosetor.toFixed(0);
-      btnRecompensa.disabled = pontosetor < 100;
-
+      document.getElementById("pontosetor").textContent = pontosetor;
+      document.getElementById("butaobala").disabled = pontosetor < 100;
       alerta.classList.add("show");
       setTimeout(() => alerta.classList.remove("show"), 4000);
     });
 
-    // ===== INÍCIO =====
+    // ===== INÍCIO AUTOMÁTICO =====
     startTimer(currentIndex);
   </script>
 </body>
